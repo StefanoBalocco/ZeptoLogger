@@ -1,3 +1,4 @@
+import stringify from 'safe-stable-stringify';
 import process from 'process';
 
 export enum LogLevel {
@@ -97,7 +98,7 @@ class ZeptoLogger {
 					if( output.message instanceof Error ) {
 						output.message = output.message.stack;
 					}
-					this._destination.write( JSON.stringify( output ) + "\n" );
+					this._destination.write( stringify( output ) + "\n" );
 					break;
 				}
 				case OutputType.TEXT: {
@@ -112,7 +113,7 @@ class ZeptoLogger {
 						'[' + output.date.toISOString() + '|' +
 						output.logLevel +
 						( this._childName ? '|' + this._childName : '' ) +
-						( extra ? '|' + JSON.stringify( extra ) : '' ) +
+						( extra ? '|' + stringify( extra ) : '' ) +
 						'] ' + output.message + "\n"
 					);
 					if( ( LogLevel.DEBUG === logLevel ) && ( message instanceof Error ) ) {

@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateLogger = exports.GetLogger = exports.OutputType = exports.LogLevel = void 0;
+const safe_stable_stringify_1 = __importDefault(require("safe-stable-stringify"));
 const process_1 = __importDefault(require("process"));
 var LogLevel;
 (function (LogLevel) {
@@ -92,7 +93,7 @@ class ZeptoLogger {
                     if (output.message instanceof Error) {
                         output.message = output.message.stack;
                     }
-                    this._destination.write(JSON.stringify(output) + "\n");
+                    this._destination.write((0, safe_stable_stringify_1.default)(output) + "\n");
                     break;
                 }
                 case OutputType.TEXT: {
@@ -107,7 +108,7 @@ class ZeptoLogger {
                     this._destination.write('[' + output.date.toISOString() + '|' +
                         output.logLevel +
                         (this._childName ? '|' + this._childName : '') +
-                        (extra ? '|' + JSON.stringify(extra) : '') +
+                        (extra ? '|' + (0, safe_stable_stringify_1.default)(extra) : '') +
                         '] ' + output.message + "\n");
                     if ((LogLevel.DEBUG === logLevel) && (message instanceof Error)) {
                         this._destination.write(message.stack + "\n");

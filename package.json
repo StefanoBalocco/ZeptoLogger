@@ -24,5 +24,8 @@
   "devDependencies": {
     "@types/node": "~20.12.7",
     "typescript": "~5.4.5"
+  },
+  "dependencies": {
+    "safe-stable-stringify": "^2.4.3"
   }
 }
