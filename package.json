@@ -1,0 +1,28 @@
+{
+  "name": "FemtoLogger",
+  "description": "A minimal log library",
+  "main": "femtologger.js",
+  "types": "femtologger.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StefanoBalocco/femtologger.git"
+  },
+  "version": "1.0.0",
+  "keywords": [
+    "log",
+    "logger"
+  ],
+  "author": "Stefano Balocco <stefano.balocco@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/StefanoBalocco/femtologger/issues"
+  },
+  "homepage": "https://github.com/StefanoBalocco/femtologget",
+  "scripts": {
+    "build": "node_modules/typescript/bin/tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "typescript": "~5.4.5"
+  }
+}
