@@ -1,5 +1,5 @@
 {
-  "name": "ZeptoLogger",
+  "name": "zeptologger",
   "description": "A minimal log library",
   "main": "ZeptoLogger.js",
   "types": "ZeptoLogger.d.ts",
