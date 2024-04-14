@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateLogger = exports.GetLogger = exports.OutputType = exports.LogLevel = void 0;
-const safe_stable_stringify_1 = __importDefault(require("safe-stable-stringify"));
 const process_1 = __importDefault(require("process"));
+const safe_stable_stringify_1 = __importDefault(require("safe-stable-stringify"));
 var LogLevel;
 (function (LogLevel) {
     LogLevel[LogLevel["DEBUG"] = 0] = "DEBUG";

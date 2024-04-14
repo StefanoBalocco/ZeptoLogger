@@ -1,4 +1,5 @@
 /// <reference types="node" />
+import { Writable } from 'node:stream';
 export declare enum LogLevel {
     DEBUG = 0,
     INFO = 1,
@@ -18,11 +19,11 @@ declare class ZeptoLogger {
     private _outputType;
     private _destination;
     private _childName;
-    constructor(minLevel?: LogLevel, outputType?: OutputType, destination?: NodeJS.WriteStream, childName?: string);
+    constructor(minLevel?: LogLevel, outputType?: OutputType, destination?: Writable, childName?: string);
     CreateChild(childName: string): ZeptoLogger;
     set minLevel(level: LogLevel);
     set outputType(outputType: OutputType);
-    set destination(destination: NodeJS.WriteStream);
+    set destination(destination: Writable);
     log(logLevel: LogLevel, message: any, extra?: object): void;
 }
 export {};

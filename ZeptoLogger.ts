@@ -1,5 +1,6 @@
-import stringify from 'safe-stable-stringify';
+import { Writable } from 'node:stream';
 import process from 'process';
+import stringify from 'safe-stable-stringify';
 
 export enum LogLevel {
 	DEBUG,
@@ -15,8 +16,9 @@ export enum OutputType {
 	TEXT
 }
 
-let _instance : ZeptoLogger;
-export function GetLogger() : ZeptoLogger {
+let _instance: ZeptoLogger;
+
+export function GetLogger(): ZeptoLogger {
 	if( !_instance ) {
 		_instance = CreateLogger();
 	}
@@ -31,10 +33,10 @@ class ZeptoLogger {
 
 	private _minLevel: LogLevel;
 	private _outputType: OutputType;
-	private _destination: NodeJS.WriteStream;
+	private _destination: Writable;
 	private _childName: string;
 
-	constructor( minLevel: LogLevel = LogLevel.INFO, outputType: OutputType = OutputType.TEXT, destination: NodeJS.WriteStream = process.stdout, childName?: string ) {
+	constructor( minLevel: LogLevel = LogLevel.INFO, outputType: OutputType = OutputType.TEXT, destination: Writable = process.stdout, childName?: string ) {
 		this._minLevel = minLevel;
 		this._outputType = outputType;
 		this._destination = destination;
@@ -53,7 +55,7 @@ class ZeptoLogger {
 		this._outputType = outputType;
 	}
 
-	public set destination( destination: NodeJS.WriteStream ) {
+	public set destination( destination: Writable ) {
 		this._destination = destination;
 	}
 
