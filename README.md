@@ -1,5 +1,5 @@
-# FemtoLogger
-Because Micro-, Mini-, Pico- and Nano- was already used.
+# ZeptoLogger
+Because Micro-, Mini-, Pico-, Nano- and Femto- was already used.
 
-FemtoLogger is a very small logging library.
-It can be used with a singleton interface (FemtoLogger.GetInstance()) or a factory (FemtoLogger.CreateInstance()).
+ZeptoLogger is a very small logging library.
+It can be used with a singleton interface (GetLogger()) or a factory (CreateLogger()).

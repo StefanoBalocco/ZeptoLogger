@@ -1,4 +1,4 @@
-const { LogLevel, OutputType, GetLogger, CreateLogger } = require( './FemtoLogger.js' );
+const { LogLevel, OutputType, GetLogger, CreateLogger } = require( './ZeptoLogger.js' );
 const { createWriteStream } = require( 'fs' );
 const messageError = new SyntaxError( 'This is an ERROR test' );
 const messageDebug = 'This is an DEBUG test';

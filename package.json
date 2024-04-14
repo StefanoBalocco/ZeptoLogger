@@ -1,11 +1,11 @@
 {
-  "name": "FemtoLogger",
+  "name": "ZeptoLogger",
   "description": "A minimal log library",
-  "main": "femtologger.js",
-  "types": "femtologger.d.ts",
+  "main": "ZeptoLogger.js",
+  "types": "ZeptoLogger.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/StefanoBalocco/femtologger.git"
+    "url": "https://github.com/StefanoBalocco/ZeptoLogger.git"
   },
   "version": "1.0.0",
   "keywords": [
@@ -15,14 +15,14 @@
   "author": "Stefano Balocco <stefano.balocco@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/StefanoBalocco/femtologger/issues"
+    "url": "https://github.com/StefanoBalocco/ZeptoLogger/issues"
   },
-  "homepage": "https://github.com/StefanoBalocco/femtologget",
+  "homepage": "https://github.com/StefanoBalocco/ZeptoLogger",
   "scripts": {
     "build": "node_modules/typescript/bin/tsc"
   },
   "devDependencies": {
-    "@types/node": "^20.12.7",
+    "@types/node": "~20.12.7",
     "typescript": "~5.4.5"
   }
 }

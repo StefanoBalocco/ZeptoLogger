@@ -11,15 +11,15 @@ export declare enum OutputType {
     JSON = 0,
     TEXT = 1
 }
-export declare function GetLogger(): FemtoLogger;
-export declare function CreateLogger(): FemtoLogger;
-declare class FemtoLogger {
+export declare function GetLogger(): ZeptoLogger;
+export declare function CreateLogger(): ZeptoLogger;
+declare class ZeptoLogger {
     private _minLevel;
     private _outputType;
     private _destination;
     private _childName;
     constructor(minLevel?: LogLevel, outputType?: OutputType, destination?: NodeJS.WriteStream, childName?: string);
-    CreateChild(childName: string): FemtoLogger;
+    CreateChild(childName: string): ZeptoLogger;
     set minLevel(level: LogLevel);
     set outputType(outputType: OutputType);
     set destination(destination: NodeJS.WriteStream);

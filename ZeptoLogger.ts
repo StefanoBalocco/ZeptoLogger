@@ -14,19 +14,19 @@ export enum OutputType {
 	TEXT
 }
 
-let _instance : FemtoLogger;
-export function GetLogger() : FemtoLogger {
+let _instance : ZeptoLogger;
+export function GetLogger() : ZeptoLogger {
 	if( !_instance ) {
 		_instance = CreateLogger();
 	}
 	return _instance;
 }
 
-export function CreateLogger(): FemtoLogger {
-	return new FemtoLogger();
+export function CreateLogger(): ZeptoLogger {
+	return new ZeptoLogger();
 }
 
-class FemtoLogger {
+class ZeptoLogger {
 
 	private _minLevel: LogLevel;
 	private _outputType: OutputType;
@@ -40,8 +40,8 @@ class FemtoLogger {
 		this._childName = childName;
 	}
 
-	public CreateChild( childName: string ): FemtoLogger {
-		return new FemtoLogger( this._minLevel, this._outputType, this._destination, childName );
+	public CreateChild( childName: string ): ZeptoLogger {
+		return new ZeptoLogger( this._minLevel, this._outputType, this._destination, childName );
 	}
 
 	public set minLevel( level: LogLevel ) {

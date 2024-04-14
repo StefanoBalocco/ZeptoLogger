@@ -19,6 +19,6 @@
     "experimentalDecorators": true
   },
   "include": [
-	"FemtoLogger.ts"
+	"ZeptoLogger.ts"
   ]
 }

@@ -28,10 +28,10 @@ function GetLogger() {
 }
 exports.GetLogger = GetLogger;
 function CreateLogger() {
-    return new FemtoLogger();
+    return new ZeptoLogger();
 }
 exports.CreateLogger = CreateLogger;
-class FemtoLogger {
+class ZeptoLogger {
     constructor(minLevel = LogLevel.INFO, outputType = OutputType.TEXT, destination = process_1.default.stdout, childName) {
         this._minLevel = minLevel;
         this._outputType = outputType;
@@ -39,7 +39,7 @@ class FemtoLogger {
         this._childName = childName;
     }
     CreateChild(childName) {
-        return new FemtoLogger(this._minLevel, this._outputType, this._destination, childName);
+        return new ZeptoLogger(this._minLevel, this._outputType, this._destination, childName);
     }
     set minLevel(level) {
         this._minLevel = level;
