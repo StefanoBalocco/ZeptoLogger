@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/StefanoBalocco/ZeptoLogger.git"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "log",
     "logger"
