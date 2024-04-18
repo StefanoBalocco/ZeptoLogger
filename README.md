@@ -1,9 +1,4 @@
 # ZeptoLogger
-
-ZeptoLogger is a very small logging library.
-It can be used with a singleton interface (GetLogger()) or a factory (CreateLogger()).
-
-# ZeptoLogger
 Because Micro-, Mini-, Pico-, Nano- and Femto- was already used.
 
 ZeptoLogger is a simple and very small logging utility for Node.js applications. It provides functionality to log messages with different log levels and output formats.
