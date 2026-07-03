@@ -3,22 +3,26 @@ Because Micro-, Mini-, Pico-, Nano- and Femto- was already used.
 
 ZeptoLogger is a simple and very small logging utility for Node.js applications. It provides functionality to log messages with different log levels and output formats.
 
+v2 is ESM-only.
+
 ## Installation
 
-You can install ZeptoLogger via npm:
+You can install ZeptoLogger via npm or pnpm:
 
 ```bash
 npm install zeptologger
 ```
 
+```bash
+pnpm add zeptologger
+```
+
 ## Usage
 ```javascript
-"use strict";
+import { ZeptoLogger, LogLevel, OutputType } from 'zeptologger';
 
-const { CreateLogger, GetLogger, LogLevel, OutputType } = require("zeptologger");
-
-// Get a logger instance
-const logger = GetLogger();
+// Get the singleton logger instance
+const logger = ZeptoLogger.instance;
 
 // Set minimum log level
 logger.minLevel = LogLevel.INFO;
@@ -30,25 +34,37 @@ logger.outputType = OutputType.JSON;
 logger.destination = process.stdout;
 
 // Log a message
-logger.log(LogLevel.INFO, "This is an information message");
+logger.log( LogLevel.INFO, 'This is an information message' );
+```
+
+Create a custom logger:
+
+```javascript
+const logger = new ZeptoLogger( LogLevel.DEBUG, OutputType.JSON );
+```
+
+Create a child logger:
+
+```javascript
+const child = logger.createChild( 'api' );
 ```
 
 ## API
 
-### GetLogger()
+### ZeptoLogger.instance
 
-- Function to get the singleton instance of the logger.
+- Static getter that returns the singleton instance of the logger.
 
-### CreateLogger()
+### new ZeptoLogger( minLevel?, outputType?, destination? )
 
-- Function to create a new instance of the logger.
+- Creates a new logger instance with optional minimum log level, output type, and destination.
 
 ### ZeptoLogger class
 
 #### Methods
 
-- `log(level, message, extra)`: Logs a message with the specified log level. Optionally, an extra object can be provided for additional data.
-- `CreateChild(label)`: Creates a child logger instance with the specified label.
+- `log( level, message, extra )`: Logs a message with the specified log level. Optionally, an extra object can be provided for additional data.
+- `createChild( label )`: Creates a child logger instance with the specified label.
 
 #### Properties
 
@@ -73,3 +89,7 @@ An enum that lists the output types.
 
 - `JSON`: Output log messages in JSON format.
 - `TEXT`: Output log messages in plain text format.
+
+## License
+
+BSD-3-Clause

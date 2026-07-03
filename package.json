@@ -1,31 +1,43 @@
 {
-  "name": "zeptologger",
-  "description": "A minimal log library",
-  "main": "ZeptoLogger.js",
-  "types": "ZeptoLogger.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/StefanoBalocco/ZeptoLogger.git"
-  },
-  "version": "1.0.2",
-  "keywords": [
-    "log",
-    "logger"
-  ],
-  "author": "Stefano Balocco <stefano.balocco@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/StefanoBalocco/ZeptoLogger/issues"
-  },
-  "homepage": "https://github.com/StefanoBalocco/ZeptoLogger",
-  "scripts": {
-    "build": "node_modules/typescript/bin/tsc"
-  },
-  "devDependencies": {
-    "@types/node": "~20.12.7",
-    "typescript": "~5.4.5"
-  },
-  "dependencies": {
-    "safe-stable-stringify": "^2.4.3"
-  }
+	"name": "zeptologger",
+	"description": "A minimal log library",
+	"version": "2.0.0",
+	"license": "BSD-3-Clause",
+	"type": "module",
+	"main": "ZeptoLogger.js",
+	"types": "ZeptoLogger.d.ts",
+	"exports": {
+		".": {
+			"import": "./ZeptoLogger.js",
+			"types": "./ZeptoLogger.d.ts"
+		}
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/StefanoBalocco/ZeptoLogger.git"
+	},
+	"keywords": [
+		"log",
+		"logger"
+	],
+	"author": "Stefano Balocco <stefano.balocco@gmail.com>",
+	"bugs": {
+		"url": "https://github.com/StefanoBalocco/ZeptoLogger/issues"
+	},
+	"homepage": "https://github.com/StefanoBalocco/ZeptoLogger",
+	"scripts": {
+		"build": "node build.mjs library tests",
+		"build:library": "node build.mjs library",
+		"build:tests": "node build.mjs tests",
+		"tests": "c8 --reporter=text --reporter=lcov ava '*.test.js' --verbose"
+	},
+	"dependencies": {
+		"safe-stable-stringify": "^2.4.3"
+	},
+	"devDependencies": {
+		"@types/node": "~22.20.0",
+		"ava": "~6",
+		"c8": "~10",
+		"typescript": "^5"
+	}
 }

@@ -1,6 +1,8 @@
 import { Writable } from 'node:stream';
-import process from 'process';
+import process from 'node:process';
 import stringify from 'safe-stable-stringify';
+
+type Undefinedable<T> = T | undefined;
 
 export enum LogLevel {
 	DEBUG,
@@ -16,35 +18,27 @@ export enum OutputType {
 	TEXT
 }
 
-let _instance: ZeptoLogger;
-
-export function GetLogger(): ZeptoLogger {
-	if( !_instance ) {
-		_instance = CreateLogger();
-	}
-	return _instance;
-}
-
-export function CreateLogger(): ZeptoLogger {
-	return new ZeptoLogger();
-}
-
-class ZeptoLogger {
-
+export class ZeptoLogger {
+	private static _instance: Undefinedable<ZeptoLogger>;
 	private _minLevel: LogLevel;
 	private _outputType: OutputType;
 	private _destination: Writable;
-	private _childName: string;
+	private _childName: Undefinedable<string> = undefined;
 
-	constructor( minLevel: LogLevel = LogLevel.INFO, outputType: OutputType = OutputType.TEXT, destination: Writable = process.stdout, childName?: string ) {
+	public constructor( minLevel: LogLevel = LogLevel.INFO, outputType: OutputType = OutputType.TEXT, destination: Writable = process.stdout ) {
 		this._minLevel = minLevel;
 		this._outputType = outputType;
 		this._destination = destination;
-		this._childName = childName;
 	}
 
-	public CreateChild( childName: string ): ZeptoLogger {
-		return new ZeptoLogger( this._minLevel, this._outputType, this._destination, childName );
+	public static get instance(): ZeptoLogger {
+		return ( ZeptoLogger._instance ??= new ZeptoLogger() );
+	}
+
+	public createChild( childName: string ): ZeptoLogger {
+		const child: ZeptoLogger = new ZeptoLogger( this._minLevel, this._outputType, this._destination );
+		child._childName = childName;
+		return child;
 	}
 
 	public set minLevel( level: LogLevel ) {
@@ -59,16 +53,17 @@ class ZeptoLogger {
 		this._destination = destination;
 	}
 
-	public log( logLevel: LogLevel, message: any, extra?: object ): void {
-		if( logLevel >= this._minLevel ) {
-			const output: { date: Date, logLevel: string, message: any, extra?: object } = {
-				date: new Date(),
+	public log( logLevel: LogLevel, message: unknown, extra?: object ): void {
+		if( this._minLevel <= logLevel ) {
+			const output: { date: string; logLevel: string; message?: unknown; extra?: object; } = {
+				date: ( new Date() ).toISOString(),
 				logLevel: LogLevel[ logLevel ],
-				message: message
+				message: ''
 			};
 			if( extra ) {
 				output.extra = extra;
 			}
+
 			switch( typeof message ) {
 				case 'string':
 				case 'number': {
@@ -76,50 +71,46 @@ class ZeptoLogger {
 					break;
 				}
 				case 'boolean': {
-					output.message = 'false';
-					if( message ) {
-						output.message = 'true';
-					}
+					output.message = ( message ? 'true' : 'false' );
 					break;
 				}
 				case 'function': {
-					output.message = message();
+					output.message = ( message as () => unknown )();
 					break;
 				}
 				case 'object': {
-					if( message instanceof Error ) {
+					if( message ) {
 						output.message = message;
-					} else if( message instanceof String ) {
-						output.message = message.toString();
 					}
 					break;
 				}
 			}
+
 			switch( this._outputType ) {
 				case OutputType.JSON: {
 					if( output.message instanceof Error ) {
 						output.message = output.message.stack;
 					}
-					this._destination.write( stringify( output ) + "\n" );
+					this._destination.write( stringify( output ) + '\n' );
 					break;
 				}
 				case OutputType.TEXT: {
 					if( 'object' === typeof output.message ) {
 						if( output.message instanceof Error ) {
-							output.message = "<" + output.message.name + "> " + output.message.message;
-						} else {
-							output.message = output.message.toString();
+							output.message = '<' + output.message.name + '> ' + output.message.message;
+						} else if( !( output.message instanceof String ) ) {
+							output.message = stringify( output.message );
 						}
 					}
 					this._destination.write(
-						'[' + output.date.toISOString() + '|' +
+						'[' + output.date + '|' +
 						output.logLevel +
 						( this._childName ? '|' + this._childName : '' ) +
 						( extra ? '|' + stringify( extra ) : '' ) +
-						'] ' + output.message + "\n"
+						'] ' + output.message + '\n'
 					);
 					if( ( LogLevel.DEBUG === logLevel ) && ( message instanceof Error ) ) {
-						this._destination.write( message.stack + "\n" );
+						this._destination.write( message.stack + '\n' );
 					}
 					break;
 				}

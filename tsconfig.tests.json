@@ -3,7 +3,7 @@
 		"target": "esnext",
 		"module": "esnext",
 		"moduleResolution": "bundler",
-		"declaration": true,
+		"declaration": false,
 		"removeComments": true,
 		"strict": true,
 		"noImplicitAny": true,
@@ -17,6 +17,6 @@
 		"allowSyntheticDefaultImports": true
 	},
 	"files": [
-		"ZeptoLogger.ts"
+		"ZeptoLogger.test.ts"
 	]
 }

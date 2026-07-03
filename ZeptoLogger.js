@@ -1,12 +1,6 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateLogger = exports.GetLogger = exports.OutputType = exports.LogLevel = void 0;
-const process_1 = __importDefault(require("process"));
-const safe_stable_stringify_1 = __importDefault(require("safe-stable-stringify"));
-var LogLevel;
+import process from 'node:process';
+import stringify from 'safe-stable-stringify';
+export var LogLevel;
 (function (LogLevel) {
     LogLevel[LogLevel["DEBUG"] = 0] = "DEBUG";
     LogLevel[LogLevel["INFO"] = 1] = "INFO";
@@ -14,33 +8,30 @@ var LogLevel;
     LogLevel[LogLevel["WARNING"] = 3] = "WARNING";
     LogLevel[LogLevel["ERROR"] = 4] = "ERROR";
     LogLevel[LogLevel["CRITICAL"] = 5] = "CRITICAL";
-})(LogLevel || (exports.LogLevel = LogLevel = {}));
-var OutputType;
+})(LogLevel || (LogLevel = {}));
+export var OutputType;
 (function (OutputType) {
     OutputType[OutputType["JSON"] = 0] = "JSON";
     OutputType[OutputType["TEXT"] = 1] = "TEXT";
-})(OutputType || (exports.OutputType = OutputType = {}));
-let _instance;
-function GetLogger() {
-    if (!_instance) {
-        _instance = CreateLogger();
-    }
-    return _instance;
-}
-exports.GetLogger = GetLogger;
-function CreateLogger() {
-    return new ZeptoLogger();
-}
-exports.CreateLogger = CreateLogger;
-class ZeptoLogger {
-    constructor(minLevel = LogLevel.INFO, outputType = OutputType.TEXT, destination = process_1.default.stdout, childName) {
+})(OutputType || (OutputType = {}));
+export class ZeptoLogger {
+    static _instance;
+    _minLevel;
+    _outputType;
+    _destination;
+    _childName = undefined;
+    constructor(minLevel = LogLevel.INFO, outputType = OutputType.TEXT, destination = process.stdout) {
         this._minLevel = minLevel;
         this._outputType = outputType;
         this._destination = destination;
-        this._childName = childName;
     }
-    CreateChild(childName) {
-        return new ZeptoLogger(this._minLevel, this._outputType, this._destination, childName);
+    static get instance() {
+        return (ZeptoLogger._instance ??= new ZeptoLogger());
+    }
+    createChild(childName) {
+        const child = new ZeptoLogger(this._minLevel, this._outputType, this._destination);
+        child._childName = childName;
+        return child;
     }
     set minLevel(level) {
         this._minLevel = level;
@@ -52,11 +43,11 @@ class ZeptoLogger {
         this._destination = destination;
     }
     log(logLevel, message, extra) {
-        if (logLevel >= this._minLevel) {
+        if (this._minLevel <= logLevel) {
             const output = {
-                date: new Date(),
+                date: (new Date()).toISOString(),
                 logLevel: LogLevel[logLevel],
-                message: message
+                message: ''
             };
             if (extra) {
                 output.extra = extra;
@@ -68,10 +59,7 @@ class ZeptoLogger {
                     break;
                 }
                 case 'boolean': {
-                    output.message = 'false';
-                    if (message) {
-                        output.message = 'true';
-                    }
+                    output.message = (message ? 'true' : 'false');
                     break;
                 }
                 case 'function': {
@@ -79,11 +67,8 @@ class ZeptoLogger {
                     break;
                 }
                 case 'object': {
-                    if (message instanceof Error) {
+                    if (message) {
                         output.message = message;
-                    }
-                    else if (message instanceof String) {
-                        output.message = message.toString();
                     }
                     break;
                 }
@@ -93,25 +78,25 @@ class ZeptoLogger {
                     if (output.message instanceof Error) {
                         output.message = output.message.stack;
                     }
-                    this._destination.write((0, safe_stable_stringify_1.default)(output) + "\n");
+                    this._destination.write(stringify(output) + '\n');
                     break;
                 }
                 case OutputType.TEXT: {
                     if ('object' === typeof output.message) {
                         if (output.message instanceof Error) {
-                            output.message = "<" + output.message.name + "> " + output.message.message;
+                            output.message = '<' + output.message.name + '> ' + output.message.message;
                         }
-                        else {
-                            output.message = output.message.toString();
+                        else if (!(output.message instanceof String)) {
+                            output.message = stringify(output.message);
                         }
                     }
-                    this._destination.write('[' + output.date.toISOString() + '|' +
+                    this._destination.write('[' + output.date + '|' +
                         output.logLevel +
                         (this._childName ? '|' + this._childName : '') +
-                        (extra ? '|' + (0, safe_stable_stringify_1.default)(extra) : '') +
-                        '] ' + output.message + "\n");
+                        (extra ? '|' + stringify(extra) : '') +
+                        '] ' + output.message + '\n');
                     if ((LogLevel.DEBUG === logLevel) && (message instanceof Error)) {
-                        this._destination.write(message.stack + "\n");
+                        this._destination.write(message.stack + '\n');
                     }
                     break;
                 }
