@@ -1,11 +1,22 @@
 {
-	"name": "zeptologger",
+	"name": "@stefanobalocco/zeptologger",
 	"description": "A minimal log library",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"license": "BSD-3-Clause",
 	"type": "module",
 	"main": "ZeptoLogger.js",
 	"types": "ZeptoLogger.d.ts",
+	"files": [
+		"ZeptoLogger.js",
+		"ZeptoLogger.min.js",
+		"ZeptoLogger.d.ts",
+		"ZeptoLogger.ts",
+		"ZeptoLogger.test.js",
+		"ZeptoLogger.test.ts",
+		"build.mjs",
+		"tsconfig.json",
+		"tsconfig.tests.json"
+	],
 	"exports": {
 		".": {
 			"import": "./ZeptoLogger.js",
@@ -31,11 +42,14 @@
 		"build:tests": "node build.mjs tests",
 		"tests": "c8 --reporter=text --reporter=lcov ava '*.test.js' --verbose"
 	},
+	"publishConfig": {
+		"access": "public"
+	},
 	"dependencies": {
-		"safe-stable-stringify": "^2.4.3"
+		"safe-stable-stringify": "~2"
 	},
 	"devDependencies": {
-		"@types/node": "~22.20.0",
+		"@types/node": "~22",
 		"ava": "~6",
 		"c8": "~10",
 		"typescript": "^5"

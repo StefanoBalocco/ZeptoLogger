@@ -3,23 +3,21 @@ Because Micro-, Mini-, Pico-, Nano- and Femto- was already used.
 
 ZeptoLogger is a simple and very small logging utility for Node.js applications. It provides functionality to log messages with different log levels and output formats.
 
-v2 is ESM-only.
-
 ## Installation
 
 You can install ZeptoLogger via npm or pnpm:
 
 ```bash
-npm install zeptologger
+npm install @stefanobalocco/zeptologger
 ```
 
 ```bash
-pnpm add zeptologger
+pnpm add @stefanobalocco/zeptologger
 ```
 
 ## Usage
 ```javascript
-import { ZeptoLogger, LogLevel, OutputType } from 'zeptologger';
+import { ZeptoLogger, LogLevel, OutputType } from '@stefanobalocco/zeptologger';
 
 // Get the singleton logger instance
 const logger = ZeptoLogger.instance;
