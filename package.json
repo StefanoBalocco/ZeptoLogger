@@ -1,57 +1,49 @@
 {
-	"name": "@stefanobalocco/zeptologger",
-	"description": "A minimal log library",
-	"version": "2.0.1",
-	"license": "BSD-3-Clause",
-	"type": "module",
-	"main": "ZeptoLogger.js",
-	"types": "ZeptoLogger.d.ts",
-	"files": [
-		"ZeptoLogger.js",
-		"ZeptoLogger.min.js",
-		"ZeptoLogger.d.ts",
-		"ZeptoLogger.ts",
-		"ZeptoLogger.test.js",
-		"ZeptoLogger.test.ts",
-		"build.mjs",
-		"tsconfig.json",
-		"tsconfig.tests.json"
-	],
-	"exports": {
-		".": {
-			"import": "./ZeptoLogger.js",
-			"types": "./ZeptoLogger.d.ts"
-		}
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/StefanoBalocco/ZeptoLogger.git"
-	},
-	"keywords": [
-		"log",
-		"logger"
-	],
-	"author": "Stefano Balocco <stefano.balocco@gmail.com>",
-	"bugs": {
-		"url": "https://github.com/StefanoBalocco/ZeptoLogger/issues"
-	},
-	"homepage": "https://github.com/StefanoBalocco/ZeptoLogger",
-	"scripts": {
-		"build": "node build.mjs library tests",
-		"build:library": "node build.mjs library",
-		"build:tests": "node build.mjs tests",
-		"tests": "c8 --reporter=text --reporter=lcov ava '*.test.js' --verbose"
-	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"dependencies": {
-		"safe-stable-stringify": "~2"
-	},
-	"devDependencies": {
-		"@types/node": "~22",
-		"ava": "~6",
-		"c8": "~10",
-		"typescript": "^5"
-	}
+  "name": "@stefanobalocco/zeptologger",
+  "description": "A minimal log library",
+  "version": "2.0.2",
+  "type": "module",
+  "types": "dist/ZeptoLogger.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/ZeptoLogger.d.ts",
+      "import": "./dist/ZeptoLogger.js"
+    }
+  },
+  "files": [
+    "dist/ZeptoLogger.js",
+    "dist/ZeptoLogger.d.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StefanoBalocco/ZeptoLogger.git"
+  },
+  "keywords": [
+    "log",
+    "logger"
+  ],
+  "author": "Stefano Balocco <stefano.balocco@gmail.com>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/StefanoBalocco/ZeptoLogger/issues"
+  },
+  "homepage": "https://github.com/StefanoBalocco/ZeptoLogger",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsBuild all",
+    "build:library": "tsBuild library",
+    "build:tests": "tsBuild tests",
+    "tests": "c8 --include=src --include=dist --exclude-after-remap --per-file --reporter=text --reporter=lcov ava 'tests/dist/*.test.js' --verbose"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "@stefanobalocco/tsbuild": "^1",
+    "ava": "^8",
+    "c8": "^12"
+  },
+  "dependencies": {
+    "safe-stable-stringify": "~2"
+  }
 }

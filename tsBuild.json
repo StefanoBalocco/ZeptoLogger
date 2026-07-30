@@ -1,0 +1,12 @@
+[
+  {
+    "target": "library",
+    "tsConfig": "tsconfig.json",
+    "name": "Library"
+  },
+  {
+    "target": "tests",
+    "tsConfig": "tests/tsconfig.json",
+    "name": "Tests"
+  }
+]

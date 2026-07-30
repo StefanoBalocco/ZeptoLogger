@@ -1,6 +1,6 @@
 import test from 'ava';
 import { Writable } from 'node:stream';
-import { ZeptoLogger, LogLevel, OutputType } from './ZeptoLogger.js';
+import { ZeptoLogger, LogLevel, OutputType } from '../../dist/ZeptoLogger.js';
 
 class CaptureWritable extends Writable {
 	public chunks: string[] = [];
@@ -174,7 +174,6 @@ test( 'Boolean messages become true/false text', ( t ) => {
 	const loggerTrue: ZeptoLogger = new ZeptoLogger( LogLevel.DEBUG, OutputType.TEXT, captureTrue );
 	loggerTrue.log( LogLevel.INFO, true );
 	t.true( captureTrue.getOutput().includes( 'true' ) );
-
 	const captureFalse: CaptureWritable = new CaptureWritable();
 	const loggerFalse: ZeptoLogger = new ZeptoLogger( LogLevel.DEBUG, OutputType.TEXT, captureFalse );
 	loggerFalse.log( LogLevel.INFO, false );
@@ -288,7 +287,6 @@ test( 'Changing outputType at runtime switches output format', ( t ) => {
 	logger.log( LogLevel.INFO, 'text-message' );
 	const textOutput: string = capture.getOutput();
 	t.true( textOutput.includes( 'text-message' ) );
-
 	const capture2: CaptureWritable = new CaptureWritable();
 	logger.outputType = OutputType.JSON;
 	logger.destination = capture2;

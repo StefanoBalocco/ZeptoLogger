@@ -5,14 +5,10 @@ ZeptoLogger is a simple and very small logging utility for Node.js applications.
 
 ## Installation
 
-You can install ZeptoLogger via npm or pnpm:
+You can install ZeptoLogger via npm:
 
 ```bash
 npm install @stefanobalocco/zeptologger
-```
-
-```bash
-pnpm add @stefanobalocco/zeptologger
 ```
 
 ## Usage

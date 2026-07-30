@@ -5,8 +5,8 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "bundler",
-    "sourceMap": true,
-    "declaration": true,
+    "sourceMap": false,
+    "declaration": false,
     "removeComments": true,
     "strict": true,
     "noImplicitAny": true,
@@ -21,6 +21,6 @@
     "types": ["node"]
   },
   "files": [
-    "src/ZeptoLogger.ts"
+    "src/ZeptoLogger.test.ts"
   ]
 }

@@ -1,6 +1,6 @@
 import test from 'ava';
 import { Writable } from 'node:stream';
-import { ZeptoLogger, LogLevel, OutputType } from './ZeptoLogger.js';
+import { ZeptoLogger, LogLevel, OutputType } from '../../dist/ZeptoLogger.js';
 class CaptureWritable extends Writable {
     chunks = [];
     _write(chunk, _encoding, callback) {
